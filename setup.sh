@@ -52,9 +52,8 @@ MARATHON_ZK="$ZK_URI/marathon"
 
 #append config to run script
 printf " --zk $MARATHON_ZK --master $MESOS_ZK " >>  /var/lib/mesos/start_marathon.sh
-supervisord --nodaemon -c /etc/supervisor
 
 
 #now we start everything
-/supervisord.conf
+supervisord --nodaemon -c /etc/supervisor/supervisord.conf
 #----------------------------------#
