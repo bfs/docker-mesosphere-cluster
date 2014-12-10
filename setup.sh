@@ -41,6 +41,7 @@ NUM_HOSTS=${#HOSTS_ARRAY[@]}
 COMPUTED_QUORUM=$(echo NUM_HOSTS | awk '{printf "%i \n", (($1/2) + 1)}')
 
 MESOS_QUORUM=${MESOS_QUORUM:-$COMPUTED_QUORUM}
+printf " --zk=$MESOS_ZK --quorum=$MESOS_QUORUM" >>  /var/lib/mesos/start_marathon.sh
 
 #----------------------------------#
 
