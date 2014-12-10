@@ -30,5 +30,5 @@ You can also use most mesos config options by passing them in as environment var
 
 
 ```bash
-docker run -e ZK_SERVER_ID=1 -e HOSTS=ops100,ops110,ops120 -p 2188:2188 -p 2888:3888 -p 3888:3888 -p 5050:5050 -p 8080:8080 -e "MESOS_CLUSTER=factual-mesosphere" --name="mesosphere" mesosphere-cluster
+docker run --net=host --publish-all=true -e ZK_SERVER_ID=1 -e HOSTS=ops100,ops110,ops120 -e MESOS_CLUSTER=factual-mesosphere --name=mesosphere -v /data/zookeeper boritzio/docker-mesosphere-cluster
 ```

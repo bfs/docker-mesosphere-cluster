@@ -20,12 +20,11 @@ ZK_ELECTION_PORT=${ZK_ELECTION_PORT:-"3888"}
 
 MESOS_CLUSTER=${MESOS_CLUSTER:-"mesosphere-cluster"}
 
-
 echo $ZK_SERVER_ID > /data/zookeeper/myid
 
 echo "clientPort=$ZK_CLIENT_PORT" >> $ZOOKEER_CONF_PATH/zoo.cfg
 for i in "${!HOSTS_ARRAY[@]}"; do 
-  echo "server.$i=${HOSTS_ARRAY[$i]}:$ZK_PEER_PORT:$ZK_ELECTION_PORT" >> $ZOOKEER_CONF_PATH/zoo.cfg
+  echo "server.$(($i+1))=${HOSTS_ARRAY[$i]}:$ZK_PEER_PORT:$ZK_ELECTION_PORT" >> $ZOOKEER_CONF_PATH/zoo.cfg
 done
 
 #----------------------------------#
@@ -40,10 +39,10 @@ MESOS_ZK="$ZK_URI/mesos"
 #compute and set zk quorum
 NUM_HOSTS=${#HOSTS_ARRAY[@]}
 COMPUTED_QUORUM=$(echo NUM_HOSTS | awk '{printf "%i \n", (($1/2) + 1)}')
+
 MESOS_QUORUM=${MESOS_QUORUM:-$COMPUTED_QUORUM}
 
 #----------------------------------#
-
 
 
 #--------marathon config-----------#
@@ -53,7 +52,12 @@ MARATHON_ZK="$ZK_URI/marathon"
 #append config to run script
 printf " --zk $MARATHON_ZK --master $MESOS_ZK " >>  /var/lib/mesos/start_marathon.sh
 
+#----------------------------------#
+
 
 #now we start everything
 supervisord --nodaemon -c /etc/supervisor/supervisord.conf
 #----------------------------------#
+
+
+
