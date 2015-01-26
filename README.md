@@ -1,6 +1,6 @@
 #Mesosphere Cluster
 
-Creates a cluster with the mesosphere meta package using the mesosphere deb packages
+Creates a cluster with the mesosphere meta package using the mesosphere deb packages.  This is meant for ease of testing, but since running multiple services inside a container is not the "docker way", in production, you should probably use separate Docker containers for each of the services below.
 
 * zookeeper
 * mesos master
@@ -30,5 +30,5 @@ You can also use most mesos config options by passing them in as environment var
 
 
 ```bash
-docker run --net=host --publish-all=true -e ZK_SERVER_ID=1 -e HOSTS=ops100,ops110,ops120 -e MESOS_CLUSTER=factual-mesosphere --name=mesosphere -v /data/zookeeper boritzio/docker-mesosphere-cluster
+docker run --net=host --publish-all=true -e ZK_SERVER_ID=1 -e HOSTS=pet110,pet110,pet120 -e MESOS_CLUSTER=factual-mesosphere --name=mesosphere -v /data/zookeeper boritzio/docker-mesosphere-cluster
 ```

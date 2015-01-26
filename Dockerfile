@@ -1,10 +1,5 @@
-FROM ubuntu:14.04
-
-RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources.list.d/mesosphere.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-    apt-get update
-
-RUN apt-get install -y mesosphere supervisor
+FROM boritzio/docker-mesosphere-base
+RUN apt-get install -y supervisor
 
 ADD zoo.cfg /etc/zookeeper/conf/zoo.cfg
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
