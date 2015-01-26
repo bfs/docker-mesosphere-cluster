@@ -1,5 +1,6 @@
 FROM boritzio/docker-mesosphere-base
-RUN apt-get install -y supervisor
+
+RUN DEBIAN_FRONTEND=noninteractive; apt-get update; apt-get install -y supervisor
 
 ADD zoo.cfg /etc/zookeeper/conf/zoo.cfg
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
